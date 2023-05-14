@@ -4,6 +4,7 @@ import com.yglee.workshop.marbleroulette.domain.MemberScore;
 import com.yglee.workshop.marbleroulette.domain.TeamScore;
 import com.yglee.workshop.marbleroulette.model.MemberDTO;
 import com.yglee.workshop.marbleroulette.model.MemberRanking;
+import com.yglee.workshop.marbleroulette.model.OptionDTO;
 import com.yglee.workshop.marbleroulette.repository.MemberRepository;
 import com.yglee.workshop.marbleroulette.repository.query.QueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final QueryRepository queryRepository;
+
+    public List<OptionDTO> getMemberOptions() {
+        return memberRepository.findAll()
+                .stream()
+                .map(member -> member.getName() + "(" + member.getId() + ")")
+                .map(OptionDTO::new)
+                .collect(Collectors.toList());
+    }
 
     public List<MemberDTO> getAllMembers() {
         return memberRepository.findAll()

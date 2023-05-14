@@ -1,5 +1,6 @@
 package com.yglee.workshop.marbleroulette.api;
 
+import com.yglee.workshop.marbleroulette.model.OptionDTO;
 import com.yglee.workshop.marbleroulette.model.TeamDTO;
 import com.yglee.workshop.marbleroulette.model.TeamRanking;
 import com.yglee.workshop.marbleroulette.service.TeamService;
@@ -25,5 +26,10 @@ public class TeamApi {
     @GetMapping("/ranking")
     public List<TeamRanking> getTeamRankings() {
         return teamService.getTeamRankings();
+    }
+
+    @GetMapping("/options")
+    public List<OptionDTO> getTeamOptions() {
+        return teamService.getTeamOptions();
     }
 }

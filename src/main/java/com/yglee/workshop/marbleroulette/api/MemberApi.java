@@ -2,6 +2,7 @@ package com.yglee.workshop.marbleroulette.api;
 
 import com.yglee.workshop.marbleroulette.model.MemberDTO;
 import com.yglee.workshop.marbleroulette.model.MemberRanking;
+import com.yglee.workshop.marbleroulette.model.OptionDTO;
 import com.yglee.workshop.marbleroulette.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +26,10 @@ public class MemberApi {
     @GetMapping("/ranking")
     public List<MemberRanking> getMemberRankings() {
         return memberService.getMemberRankings();
+    }
+
+    @GetMapping("/options")
+    public List<OptionDTO> getMemberOptions() {
+        return memberService.getMemberOptions();
     }
 }

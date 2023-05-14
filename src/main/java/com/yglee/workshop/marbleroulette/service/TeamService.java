@@ -1,5 +1,6 @@
 package com.yglee.workshop.marbleroulette.service;
 
+import com.yglee.workshop.marbleroulette.model.OptionDTO;
 import com.yglee.workshop.marbleroulette.model.TeamDTO;
 import com.yglee.workshop.marbleroulette.model.TeamRanking;
 import com.yglee.workshop.marbleroulette.repository.TeamRepository;
@@ -21,6 +22,14 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
     private final QueryRepository queryRepository;
+
+    public List<OptionDTO> getTeamOptions() {
+        return teamRepository.findAll()
+                .stream()
+                .map(team -> team.getName() + "[" + team.getLeaderId() + "]")
+                .map(OptionDTO::new)
+                .collect(Collectors.toList());
+    }
 
     public List<TeamDTO> getTeams() {
         return teamRepository.findAll()
