@@ -11,15 +11,9 @@ spring:
     password: root1324
   jpa:
 #    show-sql: true
-#    hibernate:
-#      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-#    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: ALWAYS
 
 logging:
   level:
