@@ -47,4 +47,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
         run: |
-          aws deploy create-deployment --application-name workshop-server --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name workshop-server-group --s3-location bucket=deploy-bucket-home-workshop,key=$GITHUB_SHA.zip,bundleType=zip
+          aws deploy create-deployment --application-name workshop-server --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name workshop-server-group --s3-location bucket=deploy-bucket-home-workshop,key=app-build.zip,bundleType=zip
