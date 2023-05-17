@@ -1,11 +1,14 @@
 package com.yglee.workshop.marbleroulette.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
 @Table(name = "winner")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Winner {
 
     @Id
@@ -23,4 +26,14 @@ public class Winner {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_name")
     private Team team;
+
+    public Winner(Game game, Member member) {
+        this.game = game;
+        this.member = member;
+    }
+
+    public Winner(Game game, Team team) {
+        this.game = game;
+        this.team = team;
+    }
 }

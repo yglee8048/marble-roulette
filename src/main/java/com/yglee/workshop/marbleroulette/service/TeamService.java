@@ -1,5 +1,6 @@
 package com.yglee.workshop.marbleroulette.service;
 
+import com.yglee.workshop.marbleroulette.entity.Team;
 import com.yglee.workshop.marbleroulette.model.OptionDTO;
 import com.yglee.workshop.marbleroulette.model.TeamDTO;
 import com.yglee.workshop.marbleroulette.model.TeamRanking;
@@ -26,8 +27,7 @@ public class TeamService {
     public List<OptionDTO> getTeamOptions() {
         return teamRepository.findAll()
                 .stream()
-                .map(team -> team.getName() + "[" + team.getLeaderId() + "]")
-                .map(OptionDTO::new)
+                .map(team -> new OptionDTO(team.getName(), team.getLeaderId()))
                 .collect(Collectors.toList());
     }
 
@@ -53,5 +53,21 @@ public class TeamService {
         }
 
         return sortedRanking;
+    }
+
+    @Transactional
+    public void createTeam(TeamDTO teamDTO) {
+        teamRepository.save(new Team(teamDTO.getName(), teamDTO.getLeaderId()));
+    }
+
+    @Transactional
+    public void updateTeam(TeamDTO teamDTO) {
+        teamRepository.findById(teamDTO.getName())
+                .map(team -> team.update(teamDTO.getLeaderId()));
+    }
+    
+    @Transactional
+    public void deleteTeam(String teamName) {
+        teamRepository.deleteById(teamName);
     }
 }

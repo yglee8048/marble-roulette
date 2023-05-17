@@ -66,14 +66,15 @@ public class QueryRepository {
                 .leftJoin(member).on(winner.member.eq(member))
                 .leftJoin(team).on(winner.team.eq(team))
                 .select(Projections.fields(GameWinner.class,
+                        game.id,
                         game.title,
                         game.type,
                         game.description,
                         game.image,
                         game.time,
                         game.score,
-                        member.name,
-                        team.name
+                        member.id.as("memberId"),
+                        team.name.as("teamName")
                 ))
                 .fetch();
     }

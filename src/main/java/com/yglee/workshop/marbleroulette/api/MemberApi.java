@@ -5,9 +5,7 @@ import com.yglee.workshop.marbleroulette.model.MemberRanking;
 import com.yglee.workshop.marbleroulette.model.OptionDTO;
 import com.yglee.workshop.marbleroulette.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,20 @@ public class MemberApi {
     @GetMapping("/options")
     public List<OptionDTO> getMemberOptions() {
         return memberService.getMemberOptions();
+    }
+
+    @PutMapping
+    public void updateMember(@RequestBody MemberDTO memberDTO) {
+        memberService.updateMember(memberDTO);
+    }
+
+    @PostMapping
+    public void createMember(@RequestBody MemberDTO memberDTO) {
+        memberService.createMember(memberDTO);
+    }
+
+    @DeleteMapping("/{memberId}")
+    public void deleteMember(@PathVariable("memberId") String memberId) {
+        memberService.deleteMember(memberId);
     }
 }

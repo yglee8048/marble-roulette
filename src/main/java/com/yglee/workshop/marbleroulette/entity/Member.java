@@ -23,4 +23,10 @@ public class Member {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_name")
     private Team team;
+
+    public Member update(String name, Team team) {
+        this.name = name;
+        this.team = team;
+        return this;
+    }
 }

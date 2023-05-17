@@ -5,9 +5,7 @@ import com.yglee.workshop.marbleroulette.model.TeamDTO;
 import com.yglee.workshop.marbleroulette.model.TeamRanking;
 import com.yglee.workshop.marbleroulette.service.TeamService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,20 @@ public class TeamApi {
     @GetMapping("/options")
     public List<OptionDTO> getTeamOptions() {
         return teamService.getTeamOptions();
+    }
+
+    @PostMapping
+    public void createTeam(@RequestBody TeamDTO teamDTO) {
+        teamService.createTeam(teamDTO);
+    }
+
+    @PutMapping
+    public void updateTeam(@RequestBody TeamDTO teamDTO) {
+        teamService.updateTeam(teamDTO);
+    }
+
+    @DeleteMapping("/{teamName}")
+    public void deleteTeam(@PathVariable("teamName") String teamName) {
+        teamService.deleteTeam(teamName);
     }
 }

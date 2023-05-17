@@ -22,4 +22,9 @@ public class Team {
 
     @Column(name = "leader_id")
     private String leaderId;
+
+    public Team update(String leaderId) {
+        this.leaderId = leaderId;
+        return this;
+    }
 }

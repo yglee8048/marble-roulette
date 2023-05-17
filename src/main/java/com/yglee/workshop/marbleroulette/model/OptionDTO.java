@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OptionDTO {
-    private String title;
+    private String name;
+    private String detail;
 }

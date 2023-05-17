@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameDTO {
+    private Long id;
     private String title;
     private GameType type;
     private String description;

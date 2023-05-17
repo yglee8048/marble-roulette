@@ -14,6 +14,6 @@ VALUES ('tigger.lee', '티거', '3팀'),
        ('luffy.hee', '루피', '1팀');
 
 INSERT INTO GAME(TITLE, DESCRIPTION, SCORE, TYPE, IMAGE, TIME)
-VALUES ('깃발 꾸미기', '팀원들과 깃발을 꾸미며 친해져 봐요!', 10, 'TEAM', 'logo-dropbox.png', 5),
-       ('OX 퀴즈', '당신의 지성을 뽐내세요!', 50, 'PERSONAL', 'logo-slack.png', 20),
-       ('판 뒤집기', '치열한 판 뒤집기 전쟁, 다쳐도 몰라요.', 20, 'TEAM', 'logo-medium.png', 30);
+VALUES ('깃발 꾸미기', '팀원들과 깃발을 꾸미며 친해져 봐요!', 10, 'TEAM', 'color-pen.png', 5),
+       ('OX 퀴즈', '당신의 지성을 뽐내세요!', 50, 'PERSONAL', 'xo-game.png', 20),
+       ('판 뒤집기', '치열한 판 뒤집기 전쟁, 다쳐도 몰라요.', 20, 'TEAM', 'color-board.png', 30);

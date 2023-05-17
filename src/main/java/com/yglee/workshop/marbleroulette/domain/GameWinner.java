@@ -9,16 +9,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameWinner {
+    private Long id;
     private String title;
     private GameType type;
     private String description;
     private String image;
     private Integer time;
     private Long score;
-    private String memberName;
+    private String memberId;
     private String teamName;
 
     public String getWinnerName() {
-        return memberName != null ? memberName : teamName;
+        return memberId != null ? memberId : teamName;
     }
 }
