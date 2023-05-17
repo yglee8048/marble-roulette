@@ -31,7 +31,7 @@ jobs:
         run: cp ./build/libs/*.jar ./deploy/
 
       - name: Make zip file
-        run: zip -r -qq -j ./app-build.zip ./deploy
+        run: zip -r -qq -j ./marble-roulette.zip ./deploy
 
       - name: Deliver to AWS S3
         env:
@@ -39,7 +39,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
         run: |
-          aws s3 cp --region ap-northeast-2 --acl private ./app-build.zip s3://deploy-bucket-home-workshop/
+          aws s3 cp --region ap-northeast-2 --acl private ./marble-roulette.zip s3://deploy-bucket-home-workshop/
 
       - name: Deploy to AWS EC2 from S3
         env:
@@ -47,4 +47,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-northeast-2
         run: |
-          aws deploy create-deployment --application-name workshop-server --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name workshop-server-group --s3-location bucket=deploy-bucket-home-workshop,key=app-build.zip,bundleType=zip
+          aws deploy create-deployment --application-name workshop-server --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name workshop-server-group --s3-location bucket=deploy-bucket-home-workshop,key=marble-roulette.zip,bundleType=zip
