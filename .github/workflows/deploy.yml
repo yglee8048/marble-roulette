@@ -30,6 +30,12 @@ jobs:
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy/
 
+      - name: Copy Scripts
+        run: cp ./scripts/*.sh ./deploy/
+
+      - name: Copy appspec
+        run: cp appspec.yml ./deploy/
+
       - name: Make zip file
         run: zip -r -qq -j ./marble-roulette.zip ./deploy
 
