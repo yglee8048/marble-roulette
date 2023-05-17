@@ -34,8 +34,8 @@ jobs:
       # Gradle build를 통해 만들어진 JAR를 beanstalk에 배포하기 위한 ZIP 파일로 만드는 것
       - name: Generate deployment package
         run: |
-          mkdir -p deploy
-          cp build/libs/*.jar deploy/application.jar
+          mkdir -p ./deploy
+          cp ./build/libs/*.jar ./deploy/application.jar
           cp Procfile ./deploy/Procfile
           cp -r .ebextensions ./deploy/.ebextensions
           cp -r .platform ./deploy/.platform
