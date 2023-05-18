@@ -1,15 +1,15 @@
-package com.yglee.workshop.marbleroulette.domain;
+package com.yglee.workshop.marbleroulette.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberScore {
-    private String id;
-    private String name;
-    private String teamName;
+public class WinnerDTO {
     private Integer score;
+    private List<String> winners;
 }

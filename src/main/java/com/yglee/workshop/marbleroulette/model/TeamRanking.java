@@ -11,7 +11,7 @@ public class TeamRanking {
     private Integer rank;
     private String name;
     private String leaderId;
-    private Long score;
+    private Integer score;
 
     public void setRank(Integer rank) {
         this.rank = rank;

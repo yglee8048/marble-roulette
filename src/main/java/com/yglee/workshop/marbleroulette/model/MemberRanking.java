@@ -12,9 +12,9 @@ public class MemberRanking {
     private String id;
     private String name;
     private String teamName;
-    private Long score;
-    private Long teamScore;
-    private Long totalScore;
+    private Integer score;
+    private Integer teamScore;
+    private Integer totalScore;
     private Double probability;
 
     public void setRank(Integer rank) {

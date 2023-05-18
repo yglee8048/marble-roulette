@@ -3,6 +3,7 @@ package com.yglee.workshop.marbleroulette.service;
 import com.yglee.workshop.marbleroulette.domain.GameWinner;
 import com.yglee.workshop.marbleroulette.entity.*;
 import com.yglee.workshop.marbleroulette.model.GameDTO;
+import com.yglee.workshop.marbleroulette.model.WinnerDTO;
 import com.yglee.workshop.marbleroulette.repository.GameRepository;
 import com.yglee.workshop.marbleroulette.repository.MemberRepository;
 import com.yglee.workshop.marbleroulette.repository.TeamRepository;
@@ -13,10 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -47,24 +45,20 @@ public class GameService {
                             gameWinner.getDescription(),
                             gameWinner.getImage(),
                             gameWinner.getTime(),
-                            getWinnerMap(winners)
+                            winners.stream()
+                                    .collect(Collectors.groupingBy(GameWinner::getScore))
+                                    .entrySet()
+                                    .stream()
+                                    .map(entry -> new WinnerDTO(
+                                            entry.getKey(),
+                                            entry.getValue()
+                                                    .stream()
+                                                    .map(GameWinner::getWinnerName)
+                                                    .collect(Collectors.toList())))
+                                    .collect(Collectors.toList())
                     );
                 })
                 .collect(Collectors.toList());
-    }
-
-    private Map<Integer, List<String>> getWinnerMap(List<GameWinner> winners) {
-        Map<Integer, List<String>> winnerMap = new HashMap<>();
-        for (GameWinner winner : winners) {
-            if (winnerMap.containsKey(winner.getScore())) {
-                winnerMap.get(winner.getScore()).add(winner.getWinnerName());
-            } else {
-                List<String> winnerNames = new ArrayList<>();
-                winnerNames.add(winner.getWinnerName());
-                winnerMap.put(winner.getScore(), winnerNames);
-            }
-        }
-        return winnerMap;
     }
 
     @Transactional
@@ -91,15 +85,15 @@ public class GameService {
 
         winnerRepository.deleteAllByGame(game);
         gameDTO.getWinners()
-                .forEach((score, winnerNames) ->
-                        winnerNames
+                .forEach(winnerDTO ->
+                        winnerDTO.getWinners()
                                 .forEach(winner -> {
                                     if (game.getType() == GameType.PERSONAL) {
                                         Member member = memberRepository.findById(winner).orElseThrow();
-                                        winnerRepository.save(new Winner(game, score, member));
+                                        winnerRepository.save(new Winner(game, winnerDTO.getScore(), member));
                                     } else {
                                         Team team = teamRepository.findById(winner).orElseThrow();
-                                        winnerRepository.save(new Winner(game, score, team));
+                                        winnerRepository.save(new Winner(game, winnerDTO.getScore(), team));
                                     }
                                 }));
     }

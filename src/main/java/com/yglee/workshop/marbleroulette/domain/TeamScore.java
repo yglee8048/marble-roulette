@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class TeamScore {
     private String name;
     private String leaderId;
-    private Long score;
+    private Integer score;
 }

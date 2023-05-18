@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @NoArgsConstructor
@@ -18,5 +17,5 @@ public class GameDTO {
     private String description;
     private String image;
     private Integer time;
-    private Map<Integer, List<String>> winners;
+    private List<WinnerDTO> winners;
 }

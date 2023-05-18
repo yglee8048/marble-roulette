@@ -75,9 +75,9 @@ public class MemberService {
     }
 
     private MemberRanking map(MemberScore memberScore, Map<String, TeamScore> teamScoreMap) {
-        Long teamScore = Optional.ofNullable(teamScoreMap.get(memberScore.getTeamName()))
+        Integer teamScore = Optional.ofNullable(teamScoreMap.get(memberScore.getTeamName()))
                 .map(TeamScore::getScore)
-                .orElse(0L);
+                .orElse(0);
 
         return new MemberRanking(
                 null,
