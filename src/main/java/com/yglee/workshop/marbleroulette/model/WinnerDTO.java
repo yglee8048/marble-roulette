@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WinnerDTO {
+    private String id;
     private Integer score;
-    private List<String> winners;
+    private List<OptionDTO> names;
 }

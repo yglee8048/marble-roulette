@@ -66,5 +66,5 @@ values ('사전미션', '처음 뵙겠습니다!', 'team_work.png', 1, 'TEAM'),
        ('수학문제', '우리 모두 덧셈 뺄셈은 할 수 있잖아요?', 'math.png', 20, 'TEAM'),
        ('OX 퀴즈', '당신의 지성미를 마음껏 뽐내봐요.', 'xo-game.png', 20, 'PERSONAL'),
        ('선착순 호루라기', '순발력이 없으면 살아남을 수 없어요.', 'whistle.png', 10, 'PERSONAL'),
-       ('판 뒤집기', '판 뒤집기 전쟁, 다쳐도 몰라요', 'color-board.png', 20, 'TEAM'),
+       ('판 뒤집기', '판 뒤집기 전쟁, 다쳐도 몰라요', 'color-board.jpeg', 20, 'TEAM'),
        ('표정 맞추기', '홈캠프의 명배우는 누구일까요', 'trick_face_w.png', 5, 'TEAM');

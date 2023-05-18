@@ -1,10 +1,12 @@
 package com.yglee.workshop.marbleroulette.repository.query;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.yglee.workshop.marbleroulette.domain.GameWinner;
 import com.yglee.workshop.marbleroulette.domain.MemberScore;
 import com.yglee.workshop.marbleroulette.domain.TeamScore;
+import com.yglee.workshop.marbleroulette.entity.GameType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -63,7 +65,7 @@ public class QueryRepository {
                 .leftJoin(member).on(winner.member.eq(member))
                 .leftJoin(team).on(winner.team.eq(team))
                 .select(Projections.fields(GameWinner.class,
-                        game.id,
+                        game.id.as("gameId"),
                         game.title,
                         game.type,
                         game.description,
@@ -71,8 +73,14 @@ public class QueryRepository {
                         game.time,
                         winner.score,
                         member.id.as("memberId"),
-                        team.name.as("teamName")
+                        team.name.as("teamName"),
+                        new CaseBuilder()
+                                .when(game.type.eq(GameType.TEAM))
+                                .then(team.leaderId)
+                                .otherwise(member.name).as("detail")
                 ))
                 .fetch();
     }
+
+
 }
