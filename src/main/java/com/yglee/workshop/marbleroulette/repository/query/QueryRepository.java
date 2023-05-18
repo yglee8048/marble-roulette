@@ -26,13 +26,12 @@ public class QueryRepository {
         return queryFactory
                 .from(member)
                 .leftJoin(winner).on(winner.member.eq(member))
-                .leftJoin(game).on(winner.game.eq(game))
                 .groupBy(member)
                 .select(Projections.fields(MemberScore.class,
                         member.id,
                         member.name,
                         member.team.name.as("teamName"),
-                        game.score.sum().coalesce(0L).as("score")
+                        winner.score.sum().coalesce(0).as("score")
                 ))
                 .fetch();
     }
@@ -41,21 +40,19 @@ public class QueryRepository {
         return queryFactory
                 .from(team)
                 .leftJoin(winner).on(winner.team.eq(team))
-                .leftJoin(game).on(winner.game.eq(game))
                 .groupBy(team)
                 .select(Projections.fields(TeamScore.class,
                         team.name,
                         team.leaderId,
-                        game.score.sum().coalesce(0L).as("score")
+                        winner.score.sum().coalesce(0).as("score")
                 ))
                 .fetch();
     }
 
-    public Optional<Long> getScoreSum() {
+    public Optional<Integer> getScoreSum() {
         return Optional.ofNullable(queryFactory
                 .from(winner)
-                .join(game).on(winner.game.eq(game))
-                .select(game.score.sum())
+                .select(winner.score.sum())
                 .fetchOne());
     }
 
@@ -72,7 +69,7 @@ public class QueryRepository {
                         game.description,
                         game.image,
                         game.time,
-                        game.score,
+                        winner.score,
                         member.id.as("memberId"),
                         team.name.as("teamName")
                 ))

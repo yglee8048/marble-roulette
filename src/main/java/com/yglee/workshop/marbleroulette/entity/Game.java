@@ -32,25 +32,20 @@ public class Game {
     @Column(name = "time")
     private Integer time;
 
-    @Column(name = "score")
-    private Long score;
-
-    public Game(String title, GameType type, String description, String image, Integer time, Long score) {
+    public Game(String title, GameType type, String description, String image, Integer time) {
         this.title = title;
         this.type = type;
         this.description = description;
         this.image = image;
         this.time = time;
-        this.score = score;
     }
 
-    public Game update(String title, GameType type, String description, String image, Integer time, Long score) {
+    public Game update(String title, GameType type, String description, String image, Integer time) {
         this.title = title;
         this.type = type;
         this.description = description;
         this.image = image;
         this.time = time;
-        this.score = score;
         return this;
     }
 }

@@ -28,6 +28,8 @@ public class QWinner extends EntityPathBase<Winner> {
 
     public final QMember member;
 
+    public final NumberPath<Integer> score = createNumber("score", Integer.class);
+
     public final QTeam team;
 
     public QWinner(String variable) {

@@ -15,7 +15,7 @@ public class GameWinner {
     private String description;
     private String image;
     private Integer time;
-    private Long score;
+    private Integer score;
     private String memberId;
     private String teamName;
 

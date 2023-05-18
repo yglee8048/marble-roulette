@@ -51,7 +51,7 @@ public class MemberService {
     }
 
     public List<MemberRanking> getMemberRankings() {
-        Optional<Long> scoreSumOpt = queryRepository.getScoreSum();
+        Optional<Integer> scoreSumOpt = queryRepository.getScoreSum();
 
         Map<String, TeamScore> teamScoreMap = queryRepository.getTeamScores()
                 .stream()

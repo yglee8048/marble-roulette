@@ -13,8 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -45,13 +47,24 @@ public class GameService {
                             gameWinner.getDescription(),
                             gameWinner.getImage(),
                             gameWinner.getTime(),
-                            gameWinner.getScore(),
-                            winners.stream()
-                                    .map(GameWinner::getWinnerName)
-                                    .filter(Objects::nonNull)
-                                    .collect(Collectors.toList()));
+                            getWinnerMap(winners)
+                    );
                 })
                 .collect(Collectors.toList());
+    }
+
+    private Map<Integer, List<String>> getWinnerMap(List<GameWinner> winners) {
+        Map<Integer, List<String>> winnerMap = new HashMap<>();
+        for (GameWinner winner : winners) {
+            if (winnerMap.containsKey(winner.getScore())) {
+                winnerMap.get(winner.getScore()).add(winner.getWinnerName());
+            } else {
+                List<String> winnerNames = new ArrayList<>();
+                winnerNames.add(winner.getWinnerName());
+                winnerMap.put(winner.getScore(), winnerNames);
+            }
+        }
+        return winnerMap;
     }
 
     @Transactional
@@ -62,8 +75,7 @@ public class GameService {
                         gameDTO.getType(),
                         gameDTO.getDescription(),
                         gameDTO.getImage(),
-                        gameDTO.getTime(),
-                        gameDTO.getScore()));
+                        gameDTO.getTime()));
     }
 
     @Transactional
@@ -74,21 +86,22 @@ public class GameService {
                         gameDTO.getType(),
                         gameDTO.getDescription(),
                         gameDTO.getImage(),
-                        gameDTO.getTime(),
-                        gameDTO.getScore()))
+                        gameDTO.getTime()))
                 .orElseThrow();
 
         winnerRepository.deleteAllByGame(game);
         gameDTO.getWinners()
-                .forEach(winner -> {
-                    if (game.getType() == GameType.PERSONAL) {
-                        Member member = memberRepository.findById(winner).orElseThrow();
-                        winnerRepository.save(new Winner(game, member));
-                    } else {
-                        Team team = teamRepository.findById(winner).orElseThrow();
-                        winnerRepository.save(new Winner(game, team));
-                    }
-                });
+                .forEach((score, winnerNames) ->
+                        winnerNames
+                                .forEach(winner -> {
+                                    if (game.getType() == GameType.PERSONAL) {
+                                        Member member = memberRepository.findById(winner).orElseThrow();
+                                        winnerRepository.save(new Winner(game, score, member));
+                                    } else {
+                                        Team team = teamRepository.findById(winner).orElseThrow();
+                                        winnerRepository.save(new Winner(game, score, team));
+                                    }
+                                }));
     }
 
     @Transactional

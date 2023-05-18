@@ -25,8 +25,6 @@ public class QGame extends EntityPathBase<Game> {
 
     public final StringPath image = createString("image");
 
-    public final NumberPath<Long> score = createNumber("score", Long.class);
-
     public final NumberPath<Integer> time = createNumber("time", Integer.class);
 
     public final StringPath title = createString("title");

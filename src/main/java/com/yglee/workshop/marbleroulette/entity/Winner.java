@@ -19,6 +19,9 @@ public class Winner {
     @JoinColumn(name = "game_title")
     private Game game;
 
+    @Column(name = "score")
+    private Integer score;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -27,13 +30,15 @@ public class Winner {
     @JoinColumn(name = "team_name")
     private Team team;
 
-    public Winner(Game game, Member member) {
+    public Winner(Game game, Integer score, Member member) {
         this.game = game;
+        this.score = score;
         this.member = member;
     }
 
-    public Winner(Game game, Team team) {
+    public Winner(Game game, Integer score, Team team) {
         this.game = game;
+        this.score = score;
         this.team = team;
     }
 }
