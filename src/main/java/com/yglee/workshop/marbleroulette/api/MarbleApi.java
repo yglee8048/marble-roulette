@@ -26,7 +26,7 @@ public class MarbleApi {
                 .filter(memberRanking -> CollectionUtils.isEmpty(excludes) || !excludes.contains(memberRanking.getId()))
                 .filter(memberRanking -> memberRanking.getTotalScore() > 0)
                 .map(memberRanking ->
-                        String.format("%s * %d", memberRanking.getName(), memberRanking.getTotalScore()))
+                        String.format("%s*%d", memberRanking.getName(), memberRanking.getTotalScore()))
                 .collect(Collectors.toList());
     }
 
