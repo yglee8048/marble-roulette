@@ -31,9 +31,10 @@ public class MarbleApi {
     }
 
     @GetMapping("/no-score")
-    public List<String> getNonScoredList() {
+    public List<String> getNonScoredList(@RequestParam(value = "excludes", required = false) List<String> excludes) {
         return memberService.getAllMembers()
                 .stream()
+                .filter(member -> CollectionUtils.isEmpty(excludes) || !excludes.contains(member.getId()))
                 .map(MemberDTO::getName)
                 .collect(Collectors.toList());
     }
